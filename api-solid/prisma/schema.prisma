@@ -15,7 +15,34 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  name String
-  email String @unique
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  CheckIns CheckIn[]
+}
+
+model CheckIn {
+  id          String    @id @default(uuid())
+  userId      String
+  gymId       String
+  validatedAt DateTime? // Validar a data que foi validado e/ou se esta validado (opcional)
+  createdAt   DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  gym  Gym  @relation(fields: [gymId], references: [id])
+}
+
+model Gym {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  phone       String?
+  latitude    Decimal
+  longitude   Decimal
+  createdAt   DateTime @default(now())
+
+  CheckIns CheckIn[]
 }
