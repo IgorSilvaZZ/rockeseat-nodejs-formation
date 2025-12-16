@@ -1,54 +1,71 @@
-import { CheckIn } from "@prisma/client";
-
-import { CheckInsRepository } from "../repositories/check-ins-repository";
-import { GymsRepository } from "../repositories/gyms.repository";
+import type { CheckIn } from "@prisma/client";
+import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coordinates";
+import type { CheckInsRepository } from "../repositories/check-ins-repository";
+import type { GymsRepository } from "../repositories/gyms.repository";
+import { MaxDistanceError } from "./errors/max-distance.error";
+import { MaxNumberOfCheckInsError } from "./errors/max-number-of-check-ins.error";
 import { ResourceNotFoundError } from "./errors/resource-not-found.error";
 
 interface CheckInUseCaseRequest {
-  userId: string;
-  gymId: string;
-  userLatitude: number;
-  userLongitude: number;
+	userId: string;
+	gymId: string;
+	userLatitude: number;
+	userLongitude: number;
 }
 
 interface CheckInUseCaseResponse {
-  checkIn: CheckIn;
+	checkIn: CheckIn;
 }
 
 export class CheckInUseCase {
-  constructor(
-    private checkInsRepository: CheckInsRepository,
-    private gymsRepository: GymsRepository
-  ) {}
+	constructor(
+		private checkInsRepository: CheckInsRepository,
+		private gymsRepository: GymsRepository,
+	) {}
 
-  async execute({
-    userId,
-    gymId,
-  }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
-    const gym = await this.gymsRepository.findById(gymId);
+	async execute({
+		userId,
+		gymId,
+		userLatitude,
+		userLongitude,
+	}: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
+		const gym = await this.gymsRepository.findById(gymId);
 
-    if (!gym) {
-      throw new ResourceNotFoundError();
-    }
+		if (!gym) {
+			throw new ResourceNotFoundError();
+		}
 
-    // Calcular a distancia entre o usuario e a academia
+		// Calcular a distancia entre o usuario e a academia
+		const distance = getDistanceBetweenCoordinates(
+			{ latitude: userLatitude, longitude: userLongitude },
+			{
+				latitude: gym.latitude.toNumber(),
+				longitude: gym.longitude.toNumber(),
+			},
+		);
 
-    const checkOnSameDate = await this.checkInsRepository.findByUserIdOnDate(
-      userId,
-      new Date()
-    );
+		const MAX_DISTANCE_IN_KILOMETERS = 0.3;
 
-    if (checkOnSameDate) {
-      throw new Error();
-    }
+		if (distance > MAX_DISTANCE_IN_KILOMETERS) {
+			throw new MaxDistanceError();
+		}
 
-    const checkIn = await this.checkInsRepository.create({
-      userId,
-      gymId,
-    });
+		const checkOnSameDate = await this.checkInsRepository.findByUserIdOnDate(
+			userId,
+			new Date(),
+		);
 
-    return {
-      checkIn,
-    };
-  }
+		if (checkOnSameDate) {
+			throw new MaxNumberOfCheckInsError();
+		}
+
+		const checkIn = await this.checkInsRepository.create({
+			userId,
+			gymId,
+		});
+
+		return {
+			checkIn,
+		};
+	}
 }
