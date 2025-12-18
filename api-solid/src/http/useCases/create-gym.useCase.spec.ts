@@ -4,7 +4,7 @@ import { InMemoryGymsRepository } from "../repositories/in-memory/in-memory-gym-
 
 import { CreateGymUseCase } from "./create-gym.useCase";
 
-describe("Register User Use Case", () => {
+describe("Register Gym Use Case", () => {
 	let inMemoryGymsRepository: InMemoryGymsRepository;
 	let createGymUseCase: CreateGymUseCase;
 
