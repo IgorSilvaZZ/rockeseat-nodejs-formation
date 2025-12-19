@@ -104,7 +104,7 @@ describe("CheckIn Use Case", () => {
 			createdAt: new Date(),
 		});
 
-		expect(() => {
+		await expect(() => {
 			return checkInUseCase.execute({
 				gymId: "gym-id-02",
 				userId: "user-id-01",
