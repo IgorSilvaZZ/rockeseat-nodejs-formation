@@ -9,11 +9,11 @@ export async function search(req: FastifyRequest, rep: FastifyReply) {
 		page: z.coerce.number().min(1).default(1),
 	});
 
-	const { q, page } = searchGymsQuerySchema.parse(req.params);
+	const { q, page } = searchGymsQuerySchema.parse(req.query);
 
 	const searchGymsUseCase = makeSearchGymsUseCase();
 
-	const gyms = await searchGymsUseCase.execute({
+	const { gyms } = await searchGymsUseCase.execute({
 		query: q,
 		page,
 	});
