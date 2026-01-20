@@ -4,7 +4,7 @@ import { verifyJWT } from "../../middlewares/verify-jwt.middleware";
 
 import { authenticate } from "./authenticate.controller";
 import { profile } from "./profile.controller";
-import { refresh } from "./refresh.controler";
+import { refresh } from "./refresh.controller";
 import { register } from "./register.controller";
 
 export async function userRoutes(app: FastifyInstance) {
