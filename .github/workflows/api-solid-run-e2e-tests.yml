@@ -15,7 +15,7 @@ jobs:
         image: bitnami/postgresql:latest
         ports:
           - 5432:5432
-        environment:
+        env:
           - POSTGRESQL_USERNAME=api-solid
           - POSTGRESQL_PASSWORD=Lo159c@17
           - POSTGRESQL_DATABASE=apisolid
