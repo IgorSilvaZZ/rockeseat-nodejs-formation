@@ -1,0 +1,41 @@
+name: Run E2E Tests (Api Solid)
+
+on:
+  pull_request:
+    paths:
+      - 'api-solid/**'
+
+jobs:
+  run-e2e-tests:
+    name: Run E2E Tests (Api Solid)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: bitnami/postgresql:latest
+        ports:
+          - 5432:5432
+        environment:
+          - POSTGRESQL_USERNAME=api-solid
+          - POSTGRESQL_PASSWORD=Lo159c@17
+          - POSTGRESQL_DATABASE=apisolid
+
+    defaults:
+      run:
+        working-directory: api-solid
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+          cache-dependency-path: api-solid/yarn.lock
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn run test:e2e
+        env:
+          DATABASE_URL: "postgresql://api-solid:Lo159c@17@localhost:5432/apisolid?schema=public"
+          JWT_SECRET: 'testing'
