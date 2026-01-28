@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 
 import { OrgAlreadyExists } from "../errors/OrgAlreadyExistsError";
-import type { OrgsRepository } from "../respositories/orgs.repository";
+import type { OrgsRepository } from "../repositories/orgs.repository";
 
 interface Address {
 	cep: string;
@@ -43,9 +43,9 @@ export class CreateOrgUseCase {
 		const org = await this.orgsRepository.create({
 			name,
 			email,
-			address,
 			phone,
 			passwordHash,
+			...address,
 		});
 
 		return {
