@@ -1,4 +1,4 @@
-export class OrgAlreadyExists extends Error {
+export class OrgAlreadyExistsError extends Error {
 	constructor() {
 		super("Organization already exists!");
 	}

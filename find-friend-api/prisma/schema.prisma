@@ -25,7 +25,5 @@ model Org {
   neighborhood String
   city         String
   state        String
-  latitude     Decimal
-  longitude    Decimal
   createdAt    DateTime @default(now())
 }

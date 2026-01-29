@@ -2,6 +2,10 @@
 	"name": "find-friend-api",
 	"version": "1.0.0",
 	"license": "MIT",
+	"scripts": {
+		"dev": "tsx watch src/http/server.ts",
+		"test": "vitest run"
+	},
 	"devDependencies": {
 		"@faker-js/faker": "10.2.0",
 		"@types/bcryptjs": "3.0.0",

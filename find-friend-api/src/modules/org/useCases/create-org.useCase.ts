@@ -1,20 +1,18 @@
 import { hash } from "bcryptjs";
 
-import { OrgAlreadyExists } from "../errors/OrgAlreadyExistsError";
+import { OrgAlreadyExistsError } from "../errors/OrgAlreadyExistsError";
 import type { OrgsRepository } from "../repositories/orgs.repository";
 
-interface Address {
+export interface Address {
 	cep: string;
 	street: string;
 	number: string;
 	neighborhood: string;
 	city: string;
 	state: string;
-	latitude: number;
-	longitude: number;
 }
 
-interface CreateOrgUseCaseRequest {
+export interface CreateOrgUseCaseRequest {
 	name: string;
 	email: string;
 	address: Address;
@@ -35,7 +33,7 @@ export class CreateOrgUseCase {
 		const orgAlreadyExists = await this.orgsRepository.findByEmail(email);
 
 		if (orgAlreadyExists) {
-			throw new OrgAlreadyExists();
+			throw new OrgAlreadyExistsError();
 		}
 
 		const passwordHash = await hash(password, 10);
