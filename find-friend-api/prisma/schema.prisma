@@ -27,3 +27,17 @@ model Org {
   state        String
   createdAt    DateTime @default(now())
 }
+
+model Pet {
+  id                String   @id @default(uuid())
+  name              String
+  about             String
+  age               String
+  size              String
+  energyLevel       Int
+  // Adicionar ambiente e verificar adição de enums
+  independencyLevel String
+  photoUrl          String
+  requirements      String[]
+  createdAt         DateTime @default(now())
+}
