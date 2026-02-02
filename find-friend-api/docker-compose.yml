@@ -9,3 +9,9 @@ services:
       - POSTGRESQL_USERNAME=find-friend
       - POSTGRESQL_PASSWORD=Senha@2026
       - POSTGRESQL_DATABASE=findfriend
+    volumes:
+      - find_friend_db_data:/bitnami/postgresql
+
+  
+volumes:
+  find_friend_db_data:
