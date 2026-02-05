@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Pet" ALTER COLUMN "about" DROP NOT NULL,
+ALTER COLUMN "photoUrl" DROP NOT NULL;

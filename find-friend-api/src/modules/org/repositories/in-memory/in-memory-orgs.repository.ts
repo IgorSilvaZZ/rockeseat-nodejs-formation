@@ -5,6 +5,12 @@ import type { OrgsRepository } from "../orgs.repository";
 export class OrgsRepositoryInMemory implements OrgsRepository {
 	public orgs: Org[] = [];
 
+	async findById(id: string): Promise<Org | null> {
+		const org = this.orgs.find((item) => item.id === id);
+
+		return org || null;
+	}
+
 	async findByEmail(email: string): Promise<Org | null> {
 		const org = this.orgs.find((item) => item.email === email);
 

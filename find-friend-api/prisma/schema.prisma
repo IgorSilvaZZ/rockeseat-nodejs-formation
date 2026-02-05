@@ -13,6 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PetAge {
+  PUPPY // Filhote
+  ADULT // Adulto
+  SENIOR // Idoso
+}
+
+enum Levels {
+  LOW // Pequeno
+  MEDIUM // Médio
+  HIGH // Grande
+}
+
 model Org {
   id           String   @id @default(uuid())
   name         String
@@ -26,18 +38,22 @@ model Org {
   city         String
   state        String
   createdAt    DateTime @default(now())
+
+  Pets Pet[]
 }
 
 model Pet {
   id                String   @id @default(uuid())
   name              String
-  about             String
-  age               String
-  size              String
-  energyLevel       Int
-  // Adicionar ambiente e verificar adição de enums
-  independencyLevel String
-  photoUrl          String
+  about             String?
+  age               PetAge
+  size              Levels
+  energyLevel       Int // No maximo 5
+  independencyLevel Levels
+  photoUrl          String?
   requirements      String[]
+  orgId String
   createdAt         DateTime @default(now())
+
+  org Org @relation(fields: [orgId], references: [id])
 }
