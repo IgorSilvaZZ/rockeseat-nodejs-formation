@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { makeOrgMock } from "@/utils/test/mock-org";
+import { makeOrgMock } from "@/utils/test/mocks/mock-org";
 import { OrgAlreadyExistsError } from "../errors/OrgAlreadyExistsError";
 import { OrgsRepositoryInMemory } from "../repositories/in-memory/in-memory-orgs.repository";
 import { CreateOrgUseCase } from "./create-org.useCase";

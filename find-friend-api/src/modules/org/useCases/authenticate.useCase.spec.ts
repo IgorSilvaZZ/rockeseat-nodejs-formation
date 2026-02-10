@@ -1,6 +1,6 @@
 import { hash } from "bcryptjs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { makeOrgMock } from "@/utils/test/mock-org";
+import { makeOrgMock } from "@/utils/test/mocks/mock-org";
 import { InvalidCredentialsError } from "../errors/InvalidCredentialsError";
 import { OrgsRepositoryInMemory } from "../repositories/in-memory/in-memory-orgs.repository";
 import { AuthenticateUseCase } from "./authenticate.useCase";

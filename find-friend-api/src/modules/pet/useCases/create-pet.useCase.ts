@@ -1,6 +1,7 @@
 import type { Levels, Pet, PetAge } from "@prisma/client";
 import type { OrgsRepository } from "@/modules/org/repositories/orgs.repository";
 import { ResourceNotFoundError } from "@/shared/errors/ResourceNotFoundError";
+import type { Storage } from "@/shared/interfaces/Storage";
 import type { PetsRepository } from "../repositories/pets.repository";
 
 export interface CreatePetUseCaseRequest {
@@ -24,6 +25,7 @@ export class CreatePetUseCase {
 	constructor(
 		private petsRepository: PetsRepository,
 		private orgsRepository: OrgsRepository,
+		private localStorage: Storage,
 	) {}
 
 	async execute({
@@ -46,7 +48,11 @@ export class CreatePetUseCase {
 
 		let photoUrl: string | undefined;
 
-		// Implementar serviço LocalStorage que vai fazer o upload da foto do pet
+		if (photoBuffer && photoFilename) {
+			const fileName = await this.localStorage.save(photoBuffer, photoFilename);
+
+			photoUrl = this.localStorage.getUrl(fileName);
+		}
 
 		const pet = await this.petsRepository.create({
 			name,

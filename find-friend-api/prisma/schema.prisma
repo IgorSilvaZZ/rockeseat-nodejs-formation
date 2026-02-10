@@ -52,7 +52,7 @@ model Pet {
   independencyLevel Levels
   photoUrl          String?
   requirements      String[]
-  orgId String
+  orgId             String
   createdAt         DateTime @default(now())
 
   org Org @relation(fields: [orgId], references: [id])
