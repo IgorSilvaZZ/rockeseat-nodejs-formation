@@ -28,7 +28,7 @@ export class LocalStorage implements Storage {
 	async delete(filename: string): Promise<void> {
 		const filePath = path.join(this.pathUploads, filename);
 
-		const fileExists = fs
+		const fileExists = await fs
 			.access(filePath, fs.constants.F_OK)
 			.then(() => true)
 			.catch(() => false);

@@ -16,7 +16,6 @@ export class PetsRepositoryInMemory implements PetsRepository {
 			...data,
 			id: data.id ?? randomUUID(),
 			about: data.about ?? "",
-			photoUrl: data.photoUrl ?? "",
 			requirements: data.requirements as string[],
 			createdAt: new Date(),
 		};
