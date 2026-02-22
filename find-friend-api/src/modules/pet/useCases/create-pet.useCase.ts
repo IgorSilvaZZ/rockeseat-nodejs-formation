@@ -2,6 +2,7 @@ import type { AmbiencePet, Levels, Pet, PetAge, TypePet } from "@prisma/client";
 import type { OrgsRepository } from "@/modules/org/repositories/orgs.repository";
 import { ResourceNotFoundError } from "@/shared/errors/ResourceNotFoundError";
 import type { Storage } from "@/shared/interfaces/Storage";
+import { MaxPhotosPetError } from "../errors/MaxPhotosPetError";
 import type { PetsRepository } from "../repositories/pets.repository";
 import type { PetPhotoRepository } from "../repositories/pets-photos.repository";
 
@@ -25,6 +26,8 @@ export interface CreatePetUseCaseRequest {
 export interface CreatePetUseCaseResponse {
 	pet: Pet;
 }
+
+const MAX_PHOTOS = 6;
 
 export class CreatePetUseCase {
 	constructor(
@@ -66,7 +69,13 @@ export class CreatePetUseCase {
 			requirements,
 		});
 
+		const photosUrls: string[] = [];
+
 		if (photos && photos?.length > 0) {
+			if (photos.length > MAX_PHOTOS) {
+				throw new MaxPhotosPetError();
+			}
+
 			for (const item of photos) {
 				const fileName = await this.localStorage.save(
 					item.buffer,
@@ -76,11 +85,14 @@ export class CreatePetUseCase {
 				const photoUrl = this.localStorage.getUrl(fileName);
 
 				await this.photoPetsRepository.create({ petId: pet.id, url: photoUrl });
+
+				photosUrls.push(photoUrl);
 			}
 		}
 
 		return {
 			pet,
+			photos: photosUrls,
 		};
 	}
 }

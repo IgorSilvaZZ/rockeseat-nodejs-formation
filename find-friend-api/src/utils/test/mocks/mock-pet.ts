@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { faker } from "@faker-js/faker";
 import { AmbiencePet, Levels, PetAge, TypePet } from "@prisma/client";
 import type { CreatePetUseCaseRequest } from "@/modules/pet/useCases/create-pet.useCase";
@@ -14,6 +15,6 @@ export const makePetMock = (override: Override = {}) => ({
 	independencyLevel: override.independencyLevel ?? Levels.MEDIUM,
 	ambience: override.ambience ?? AmbiencePet.MEDIUM,
 	photos: override.photos ?? [],
-	orgId: override.orgId,
+	orgId: override.orgId ?? randomUUID(),
 	requirements: override.requirements ?? [],
 });
