@@ -4,7 +4,7 @@ import { ResourceNotFoundError } from "@/shared/errors/ResourceNotFoundError";
 import type { Storage } from "@/shared/interfaces/Storage";
 import { MaxPhotosPetError } from "../errors/MaxPhotosPetError";
 import type { PetsRepository } from "../repositories/pets.repository";
-import type { PetPhotoRepository } from "../repositories/pets-photos.repository";
+import type { PetsPhotoRepository } from "../repositories/pets-photos.repository";
 
 export interface CreatePetUseCaseRequest {
 	name: string;
@@ -32,7 +32,7 @@ const MAX_PHOTOS = 6;
 export class CreatePetUseCase {
 	constructor(
 		private petsRepository: PetsRepository,
-		private photoPetsRepository: PetPhotoRepository,
+		private petsPhotosRepository: PetsPhotoRepository,
 		private orgsRepository: OrgsRepository,
 		private localStorage: Storage,
 	) {}
@@ -84,7 +84,10 @@ export class CreatePetUseCase {
 
 				const photoUrl = this.localStorage.getUrl(fileName);
 
-				await this.photoPetsRepository.create({ petId: pet.id, url: photoUrl });
+				await this.petsPhotosRepository.create({
+					petId: pet.id,
+					url: photoUrl,
+				});
 
 				photosUrls.push(photoUrl);
 			}

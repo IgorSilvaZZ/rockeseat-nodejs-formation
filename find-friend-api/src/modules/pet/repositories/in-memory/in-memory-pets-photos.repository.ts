@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import type { PetPhoto, Prisma } from "@prisma/client";
-import type { PetPhotoRepository } from "../pets-photos.repository";
+import type { PetsPhotoRepository } from "../pets-photos.repository";
 
-export class PetsPhotosRepositoryInMemory implements PetPhotoRepository {
+export class PetsPhotosRepositoryInMemory implements PetsPhotoRepository {
 	public petsPhotos: PetPhoto[] = [];
 
 	async create(data: Prisma.PetPhotoUncheckedCreateInput): Promise<PetPhoto> {
