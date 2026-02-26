@@ -49,7 +49,7 @@ model Org {
   number       String
   neighborhood String
   city         String
-  state        String
+  state        String // Sigla do estado
   createdAt    DateTime @default(now())
 
   Pets Pet[]
