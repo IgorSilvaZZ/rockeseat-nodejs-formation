@@ -8,14 +8,12 @@ export async function create(req: FastifyRequest, rep: FastifyReply) {
 		email: z.email(),
 		phone: z.string().min(1),
 		password: z.string().min(1),
-		address: z.object({
-			cep: z.string(),
-			street: z.string(),
-			neighborhood: z.string(),
-			number: z.string(),
-			city: z.string(),
-			state: z.string(),
-		}),
+		cep: z.string(),
+		street: z.string(),
+		neighborhood: z.string(),
+		number: z.string(),
+		city: z.string(),
+		state: z.string(),
 	});
 
 	const orgData = createOrgSchema.parse(req.body);

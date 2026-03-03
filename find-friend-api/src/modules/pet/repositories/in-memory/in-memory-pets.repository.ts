@@ -74,7 +74,7 @@ export class PetsRepositoryInMemory implements PetsRepository {
 		// Coletando as fotos para cada pet
 		const petsWithPhotos = paginatedPets.map((pet) => ({
 			...pet,
-			photos:
+			petPhotos:
 				this.petsPhotosRepository?.petsPhotos.filter(
 					(petPhoto) => petPhoto.petId === pet.id,
 				) ?? [],

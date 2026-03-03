@@ -39,18 +39,7 @@ describe("Create pet", () => {
 	it("should be able create a new pet in organization", async () => {
 		const orgData = makeOrgMock();
 
-		const { id: orgId } = await orgsRepositoryInMemory.create({
-			name: orgData.name,
-			email: orgData.email,
-			phone: orgData.phone,
-			passwordHash: orgData.password,
-			cep: orgData.address.cep,
-			street: orgData.address.street,
-			number: orgData.address.number,
-			neighborhood: orgData.address.neighborhood,
-			city: orgData.address.city,
-			state: orgData.address.state,
-		});
+		const { id: orgId } = await orgsRepositoryInMemory.create(orgData);
 
 		const petMock = makePetMock({
 			name: "Lua Negra",
@@ -76,18 +65,7 @@ describe("Create pet", () => {
 	it("should be able create a new pet in organization with field photo", async () => {
 		const orgData = makeOrgMock();
 
-		const { id: orgId } = await orgsRepositoryInMemory.create({
-			name: orgData.name,
-			email: orgData.email,
-			phone: orgData.phone,
-			passwordHash: orgData.password,
-			cep: orgData.address.cep,
-			street: orgData.address.street,
-			number: orgData.address.number,
-			neighborhood: orgData.address.neighborhood,
-			city: orgData.address.city,
-			state: orgData.address.state,
-		});
+		const { id: orgId } = await orgsRepositoryInMemory.create(orgData);
 
 		const petMock = makePetMock({
 			name: "Flora",
@@ -150,18 +128,7 @@ describe("Create pet", () => {
 	it("should not be able create a new pet with more than 6 photos", async () => {
 		const orgData = makeOrgMock();
 
-		const { id: orgId } = await orgsRepositoryInMemory.create({
-			name: orgData.name,
-			email: orgData.email,
-			phone: orgData.phone,
-			passwordHash: orgData.password,
-			cep: orgData.address.cep,
-			street: orgData.address.street,
-			number: orgData.address.number,
-			neighborhood: orgData.address.neighborhood,
-			city: orgData.address.city,
-			state: orgData.address.state,
-		});
+		const { id: orgId } = await orgsRepositoryInMemory.create(orgData);
 
 		const photos = Array.from({ length: 7 }).map((_, index) => ({
 			buffer: Buffer.from(`fake-image-data-${index}`),

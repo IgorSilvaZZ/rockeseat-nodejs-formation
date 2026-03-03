@@ -19,18 +19,7 @@ describe("Authenticate Organization (Org)", () => {
 	it("should be able authenticate a organization", async () => {
 		const orgData = makeOrgMock({ password: await hash("123", 10) });
 
-		await orgsRepositoryInMemory.create({
-			name: orgData.name,
-			email: orgData.email,
-			passwordHash: orgData.password,
-			phone: orgData.phone,
-			street: orgData.address.street,
-			cep: orgData.address.cep,
-			city: orgData.address.city,
-			neighborhood: orgData.address.neighborhood,
-			number: orgData.address.number,
-			state: orgData.address.state,
-		});
+		await orgsRepositoryInMemory.create(orgData);
 
 		const { org } = await authenticateUseCase.execute({
 			email: orgData.email,
@@ -43,18 +32,7 @@ describe("Authenticate Organization (Org)", () => {
 	it("should not be able authenticate a organization when incorrect email", async () => {
 		const orgData = makeOrgMock({ password: await hash("123", 10) });
 
-		await orgsRepositoryInMemory.create({
-			name: orgData.name,
-			email: orgData.email,
-			passwordHash: orgData.password,
-			phone: orgData.phone,
-			street: orgData.address.street,
-			cep: orgData.address.cep,
-			city: orgData.address.city,
-			neighborhood: orgData.address.neighborhood,
-			number: orgData.address.number,
-			state: orgData.address.state,
-		});
+		await orgsRepositoryInMemory.create(orgData);
 
 		await expect(() =>
 			authenticateUseCase.execute({
@@ -67,18 +45,7 @@ describe("Authenticate Organization (Org)", () => {
 	it("should not be able authenticate a organization when incorrect password", async () => {
 		const orgData = makeOrgMock({ password: await hash("123", 10) });
 
-		await orgsRepositoryInMemory.create({
-			name: orgData.name,
-			email: orgData.email,
-			passwordHash: orgData.password,
-			phone: orgData.phone,
-			street: orgData.address.street,
-			cep: orgData.address.cep,
-			city: orgData.address.city,
-			neighborhood: orgData.address.neighborhood,
-			number: orgData.address.number,
-			state: orgData.address.state,
-		});
+		await orgsRepositoryInMemory.create(orgData);
 
 		await expect(() =>
 			authenticateUseCase.execute({

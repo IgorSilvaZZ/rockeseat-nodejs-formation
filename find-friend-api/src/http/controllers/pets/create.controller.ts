@@ -1,6 +1,6 @@
 import { AmbiencePet, Levels, PetAge, TypePet } from "@prisma/client";
 import type { FastifyReply, FastifyRequest } from "fastify";
-import z, { transform } from "zod";
+import z from "zod";
 import { makeCreatePetUseCase } from "@/modules/pet/factories/make-create-pet-useCase.factory";
 
 export async function create(req: FastifyRequest, rep: FastifyReply) {

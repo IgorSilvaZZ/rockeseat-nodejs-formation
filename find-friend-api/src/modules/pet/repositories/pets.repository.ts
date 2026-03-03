@@ -2,7 +2,7 @@ import type { Pet, PetPhoto, Prisma } from "@prisma/client";
 import type { SearchPetsUseCaseRequest } from "../useCases/search-pets.useCase";
 
 export type PetWithPhotos = Pet & {
-	photos: PetPhoto[];
+	petPhotos: PetPhoto[];
 };
 
 export interface PetsRepository {

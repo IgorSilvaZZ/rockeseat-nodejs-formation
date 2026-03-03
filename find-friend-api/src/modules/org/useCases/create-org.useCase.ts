@@ -3,19 +3,15 @@ import { hash } from "bcryptjs";
 import { OrgAlreadyExistsError } from "../errors/OrgAlreadyExistsError";
 import type { OrgsRepository } from "../repositories/orgs.repository";
 
-export interface Address {
+export interface CreateOrgUseCaseRequest {
+	name: string;
+	email: string;
 	cep: string;
 	street: string;
 	number: string;
 	neighborhood: string;
 	city: string;
 	state: string;
-}
-
-export interface CreateOrgUseCaseRequest {
-	name: string;
-	email: string;
-	address: Address;
 	phone: string;
 	password: string;
 }
@@ -26,7 +22,12 @@ export class CreateOrgUseCase {
 	async execute({
 		name,
 		email,
-		address,
+		cep,
+		street,
+		number,
+		neighborhood,
+		city,
+		state,
 		phone,
 		password,
 	}: CreateOrgUseCaseRequest) {
@@ -43,7 +44,12 @@ export class CreateOrgUseCase {
 			email,
 			phone,
 			passwordHash,
-			...address,
+			cep,
+			street,
+			number,
+			neighborhood,
+			city,
+			state,
 		});
 
 		return {
