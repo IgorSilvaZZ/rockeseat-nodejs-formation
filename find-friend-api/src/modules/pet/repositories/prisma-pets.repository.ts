@@ -1,13 +1,33 @@
 import type { Pet, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import type { SearchPetsUseCaseRequest } from "../useCases/search-pets.useCase";
-import type { PetsRepository, PetWithPhotos } from "./pets.repository";
+import type {
+	PetsRepository,
+	PetWithPhotos,
+	PetWithPhotosAndOrg,
+} from "./pets.repository";
 
 export class PrismaPetsRepository implements PetsRepository {
 	async findById(id: string): Promise<Pet | null> {
 		const pet = await prisma.pet.findUnique({
 			where: {
 				id,
+			},
+		});
+
+		return pet || null;
+	}
+
+	async findByIdWithPhotosAndOrg(
+		id: string,
+	): Promise<PetWithPhotosAndOrg | null> {
+		const pet = await prisma.pet.findUnique({
+			where: {
+				id,
+			},
+			include: {
+				petPhotos: true,
+				org: true,
 			},
 		});
 

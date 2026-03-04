@@ -2,7 +2,11 @@ import { randomUUID } from "node:crypto";
 import type { Pet, Prisma } from "@prisma/client";
 import type { OrgsRepositoryInMemory } from "@/modules/org/repositories/in-memory/in-memory-orgs.repository";
 import type { SearchPetsUseCaseRequest } from "../../useCases/search-pets.useCase";
-import type { PetsRepository, PetWithPhotos } from "../pets.repository";
+import type {
+	PetsRepository,
+	PetWithPhotos,
+	PetWithPhotosAndOrg,
+} from "../pets.repository";
 import type { PetsPhotosRepositoryInMemory } from "./in-memory-pets-photos.repository";
 
 export class PetsRepositoryInMemory implements PetsRepository {
@@ -18,6 +22,28 @@ export class PetsRepositoryInMemory implements PetsRepository {
 		const pet = this.pets.find((item) => item.id === id);
 
 		return pet || null;
+	}
+
+	async findByIdWithPhotosAndOrg(
+		id: string,
+	): Promise<PetWithPhotosAndOrg | null> {
+		const pet = this.pets.find((item) => item.id === id);
+
+		if (!pet) {
+			return null;
+		}
+
+		const petPhotos = this.petsPhotosRepository?.petsPhotos.filter(
+			(photoPet) => photoPet.petId === id,
+		);
+
+		const org = this.orgsRepository?.orgs.find((org) => org.id === pet.orgId);
+
+		return {
+			...pet,
+			petPhotos: petPhotos ?? [],
+			org: org ?? null,
+		};
 	}
 
 	async searchMany({
