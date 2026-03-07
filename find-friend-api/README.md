@@ -16,3 +16,5 @@
 - [X] Todos os filtros de características do pet, com exceção da cidade, são opcionais
 - [X] Para que uma ORG tenha acesso administrativo à aplicação, ela deve estar logada
 
+
+Feito com muito ❤️ por Igor Silva
