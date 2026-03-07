@@ -13,7 +13,7 @@ export async function create(req: FastifyRequest, rep: FastifyReply) {
 		neighborhood: z.string(),
 		number: z.string(),
 		city: z.string(),
-		state: z.string(),
+		state: z.string().min(2).max(2),
 	});
 
 	const orgData = createOrgSchema.parse(req.body);
