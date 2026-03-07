@@ -1,0 +1,28 @@
+name: Run Unit Tests Find Friend
+
+on:
+  push:
+    paths:
+      - 'find-friend-api/**'
+
+jobs:
+  run-unit-tests:
+    name: Run Unit Tests Find Friend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: api-solid
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+          cache-dependency-path: find-friend/yarn.lock
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn run test
