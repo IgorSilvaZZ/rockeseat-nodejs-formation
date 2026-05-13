@@ -1,6 +1,7 @@
 // Representa basicamente o instrutor respondendo uma pergunta especifica
 
 import { Answer } from "../entities/answer";
+import { UniqueEntityId } from "../entities/value-objects/unique-entity-id";
 import type { AnswersRepository } from "../repositories/answers-repository";
 
 interface AnswerQuestionUseCaseRequest {
@@ -17,10 +18,10 @@ export class AnswerQuestionUseCase {
 		questionId,
 		content,
 	}: AnswerQuestionUseCaseRequest) {
-		const answer = new Answer({
+		const answer = Answer.create({
 			content,
-			authorId: instructorId,
-			questionId,
+			authorId: new UniqueEntityId(instructorId),
+			questionId: new UniqueEntityId(questionId),
 		});
 
 		await this.answersRepository.create(answer);
