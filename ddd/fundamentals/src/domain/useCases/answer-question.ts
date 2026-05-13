@@ -1,8 +1,8 @@
 // Representa basicamente o instrutor respondendo uma pergunta especifica
 
-import { Answer } from "../entities/answer";
-import { UniqueEntityId } from "../entities/value-objects/unique-entity-id";
-import type { AnswersRepository } from "../repositories/answers-repository";
+import { Answer } from "@/domain/entities/answer";
+import { UniqueEntityId } from "@/domain/entities/value-objects/unique-entity-id";
+import type { AnswersRepository } from "@/domain/repositories/answers-repository";
 
 interface AnswerQuestionUseCaseRequest {
 	instructorId: string; // Instrutor que esta respondendo

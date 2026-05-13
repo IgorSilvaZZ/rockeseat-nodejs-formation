@@ -1,7 +1,7 @@
-import { Entity } from "../../core/entities/entity";
-import type { Optional } from "../../core/types/optional";
-import { Slug } from "./value-objects/slug";
-import type { UniqueEntityId } from "./value-objects/unique-entity-id";
+import { Entity } from "@/core/entities/entity";
+import type { Optional } from "@/core/types/optional";
+import { Slug } from "@/domain/entities/value-objects/slug";
+import type { UniqueEntityId } from "@/domain/entities/value-objects/unique-entity-id";
 
 export interface QuestionProps {
 	title: string; // Titulo da questão

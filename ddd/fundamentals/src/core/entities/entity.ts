@@ -1,4 +1,4 @@
-import { UniqueEntityId } from "../../domain/entities/value-objects/unique-entity-id";
+import { UniqueEntityId } from "@/domain/entities/value-objects/unique-entity-id";
 
 export class Entity<PropsType> {
 	private _id: UniqueEntityId;

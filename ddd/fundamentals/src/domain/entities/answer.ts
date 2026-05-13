@@ -1,6 +1,6 @@
-import type { Optional } from "src/core/types/optional";
-import { Entity } from "../../core/entities/entity";
-import type { UniqueEntityId } from "./value-objects/unique-entity-id";
+import { Entity } from "@/core/entities/entity";
+import type { Optional } from "@/core/types/optional";
+import type { UniqueEntityId } from "@/domain/entities/value-objects/unique-entity-id";
 
 export interface AnswerProps {
 	content: string; // O conteudo da resposta

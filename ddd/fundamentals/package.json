@@ -1,11 +1,12 @@
 {
-  "name": "fundamentals",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^25.7.0",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
-  }
+	"name": "fundamentals",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^24.0.12",
+		"typescript": "^5.9.3",
+		"vite-tsconfig-paths": "^6.1.1",
+		"vitest": "^4.0.18"
+	}
 }
